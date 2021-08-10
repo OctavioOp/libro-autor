@@ -1,0 +1,21 @@
+body{
+    background-color: black;
+}
+#home{
+    background-color: gray;
+    padding: 2rem;
+    margin: 1rem;
+    margin-top: 10rem;
+   
+}
+h1{
+    color: white;
+    margin-top: 3rem;
+}
+
+.blur{
+    filter: blur(6px);
+}
+h2,label,th,td{
+    color: white;
+}

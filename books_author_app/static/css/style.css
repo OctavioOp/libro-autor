@@ -19,3 +19,12 @@ h1{
 h2,label,th,td{
     color: white;
 }
+
+tbody {
+    height: 20em;
+    overflow: scroll;
+  }
+
+#gold,#gold1{
+    color: #FFD700;
+}

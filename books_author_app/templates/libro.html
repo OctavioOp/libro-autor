@@ -16,6 +16,8 @@
     {%load static%}
     <script src="{% static 'js/index.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 </head>
 
 <body>
@@ -27,11 +29,11 @@
                     {% csrf_token %}
                     <div class="my-3">
                         <label for="">Nombre del Libro</label>
-                        <input type="text" name="libro">
+                        <input type="text" name="libro" required>
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Descripcion</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" name="desc"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" name="desc" required></textarea>
                     </div>
                     <button class="btn btn-success" type="submit">Submit</button>
                 </form>
@@ -49,13 +51,14 @@
                                 <th scope="col">Accion</th>
                             </tr>
                         </thead>
-                        <div >
+                        <div>
                             <tbody>
                                 {% for book in libro%}
                                 <tr>
                                     <th scope="row">{{book.id}}</th>
                                     <td>{{book.title}}</td>
-                                    <td><a href="" class="btn btn-warning">Ver</a></td>
+                                    <td><a href="/view/book/{{book.id}}" class="btn btn-warning"><i class="far fa-eye"></i></a>
+                                    <a href="/delete/{{book.id}}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
 
                                 </tr>
                                 {%endfor%}

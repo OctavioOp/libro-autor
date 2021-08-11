@@ -22,27 +22,27 @@
 
 <body>
     <div class="container">
-        <h2 class="mt-5"><i class="far fa-bookmark"></i> {{title}}</h2>
-        <h4 class="mt-3">ID: {{id_book}}</h4>
-        <h4 class="mt-5" style="color: #D4AF37;">Descripcion:</h4>
-        <p class=" mb-5" style="color: #E5E4E2;">{{desc}}</p>
-        <h4 style="color: #D4AF37;">Autores:</h4>
+        <h2 class="mt-5"><i class="far fa-user"></i> {{first_name}} {{last_name}}</h2>
+        <h4 class="mt-3">ID: {{id_author}}</h4>
+        <h4 class="mt-5" style="color: #D4AF37;">Notas:</h4>
+        <p class=" mb-5" style="color: #E5E4E2;">{{notes}}</p>
+        <h4 style="color: #D4AF37;">Libros:</h4>
         <ul>
-            {%for autor in authors%}
-            <li style="color: #E5E4E2;">{{autor.first_name}} {{autor.last_name}}</li>
+            {%for book in all_books%}
+            <li style="color: #E5E4E2;">{{book.title}}</li>
             {%endfor%}
         </ul>
-        <form action="/view/addAutor/{{id_book}}" method="POST" class="my-3">
+        <form action="/view/addBook/{{id_author}}" method="POST" class="my-3">
             {% csrf_token %}
-            <label for="" style="color: #D4AF37;">Agrega tus Autores Magicamente</label>
-            <select name="autor" id="autor">
-                {% for a in not_author%}
-                <option value="{{a.id}}">{{a.first_name}} {{a.last_name}}</option>
+            <label for="" style="color: #D4AF37;">Agrega tus Libros Magicamente</label>
+            <select name="book" id="book">
+                {% for b in not_book%}
+                <option value="{{b.id}}">{{b.title}}</option>
                 {%endfor%}
             </select>
-            <button class="btn btn-success" type="submit">Submit</button>
+            <button class="btn btn-success">Submit</button>
         </form>
-        <a href="/libro" class="btn btn-danger">back</a>
+        <a href="/autor" class="btn btn-danger">back</a>
 
     </div>
 </body>

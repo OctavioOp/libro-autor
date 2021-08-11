@@ -24,25 +24,27 @@
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <h2 class="my-5 text-center">Agregar Libro</h2>
-                <form method="POST" action="../libro">
+                <h2 class="my-5 text-center">Agregar Autor</h2>
+                <form method="POST" action="../autor">
                     {% csrf_token %}
                     <div class="my-3">
-                        <label for="">Nombre del Libro</label>
-                        <input type="text" name="libro" required>
+                        <label for="">Nombre del Autor</label>
+                        <input type="text" name="name" required>
+                    </div>
+                    <div class="my-3">
+                        <label for="">Apellido del Autor</label>
+                        <input type="text" name="l_name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Descripcion</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" name="desc"
-                            required></textarea>
+                        <label for="exampleFormControlTextarea1" class="form-label">Notas</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" name="notes"></textarea>
                     </div>
                     <button class="btn btn-success" type="submit">Submit</button>
                 </form>
-
                 <a href="/" class="btn btn-danger mt-3">Home</a>
             </div>
             <div class="col-6">
-                <h2 class="my-5 text-center">Biblioteca</h2>
+                <h2 class="my-5 text-center">Autores</h2>
                 <div class="container">
 
                     <table class="table">
@@ -50,19 +52,19 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Titulo</th>
-                                <th scope="col">Accion</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
                             </tr>
                         </thead>
                         <div>
                             <tbody>
-                                {% for book in libro%}
+                                {% for autor in autores%}
                                 <tr>
-                                    <th scope="row">{{book.id}}</th>
-                                    <td>{{book.title}}</td>
-                                    <td><a href="/view/book/{{book.id}}" class="btn btn-warning"><i
+                                    <th scope="row">{{autor.id}}</th>
+                                    <td>{{autor.first_name}} {{autor.last_name}}</td>
+                                    <td><a href="/view/autor/{{autor.id}}" class="btn btn-warning"><i
                                                 class="far fa-eye"></i></a>
-                                        <a href="/delete/{{book.id}}" class="btn btn-danger"><i
+                                        <a href="/delete_author/{{autor.id}}" class="btn btn-danger"><i
                                                 class="far fa-trash-alt"></i></a>
                                     </td>
 

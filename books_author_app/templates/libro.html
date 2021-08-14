@@ -25,16 +25,16 @@
         <div class="row">
             <div class="col-6">
                 <h2 class="my-5 text-center">Agregar Libro</h2>
-                <form method="POST" action="../libro">
+                <form method="POST" action="../libro" id="form_book">
                     {% csrf_token %}
                     <div class="my-3">
                         <label for="">Nombre del Libro</label>
-                        <input type="text" name="libro" required>
+                        <input type="text" name="title" id="title" required>
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Descripcion</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" name="desc"
-                            required></textarea>
+                        <textarea class="form-control" rows="4" name="desc"
+                            required id="desc"></textarea>
                     </div>
                     <button class="btn btn-success" type="submit">Submit</button>
                 </form>
@@ -55,7 +55,7 @@
                             </tr>
                         </thead>
                         <div>
-                            <tbody>
+                            <tbody id="lista_libros">
                                 {% for book in libro%}
                                 <tr>
                                     <th scope="row">{{book.id}}</th>
@@ -76,6 +76,43 @@
             </div>
         </div>
     </div>
+    <script>
+        $('#form_book').on('submit',function(event){
+            event.preventDefault()
+
+            $.ajax({
+                method: 'POST',
+                url: '/add_book_ajax',
+                data: {
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                    title: $('#title').val(),
+                    desc: $('#desc').val()
+                },
+                success: function(data){
+                    console.log('Llamada exitosa')
+                    console.log(data);
+                    // primero dejo el formulario de vuelta en blanco
+                    $('#title').val('')
+                    $('#desc').val('')
+                    // despues agrego nuevo libro a la lista de la derecha
+                    $('#lista_libros').prepend(`
+                    <tr>
+                        <th scope="row">${data.id}</th>
+                        <td>${data.title}</td>
+                        <td><a href="/view/book/${data.id}" class="btn btn-warning"><i
+                                    class="far fa-eye"></i></a>
+                            <a href="/delete/${data.id}" class="btn btn-danger"><i
+                                    class="far fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                    `)
+                },
+                error: function(error){
+                    console.log('error?',error)
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

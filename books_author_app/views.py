@@ -1,3 +1,4 @@
+from django.http.response import JsonResponse
 from django.shortcuts import redirect, render, HttpResponse
 from .models import Book, Author
 
@@ -17,12 +18,20 @@ def libro(request):
         }
         return render(request, 'libro.html', context)
     else:
-        book = request.POST['libro']
+        title = request.POST['title']
         desc = request.POST['desc']
 
-        libro_nuevo = Book.objects.create(title=book, desc=desc)
-        libro_nuevo.save()
+        libro_nuevo = Book.objects.create(title=title, desc=desc)
         return redirect('/libro')
+
+
+def add_book_ajax(request):
+    title = request.POST['title']
+    desc = request.POST['desc']
+    libro_nuevo = Book.objects.create(title=title, desc=desc)
+    return JsonResponse({'title': title,
+                         'desc': desc,
+                         'id': libro_nuevo.id})
 
 
 def autor(request):
@@ -108,3 +117,11 @@ def get_author(request, num):
         'id_author': bring_author.id
     }
     return render(request, 'autorView.html', context)
+
+
+def remove(request, id_autor, id_libro):
+    libro = Book.objects.get(id=id_libro)
+    autor = Author.objects.get(id=id_autor)
+    autor.books.remove(libro)
+    return redirect(request.META.get('HTTP_REFERER')
+                    )

@@ -29,7 +29,7 @@
         <h4 style="color: #D4AF37;">Autores:</h4>
         <ul>
             {%for autor in authors%}
-            <li style="color: #E5E4E2;">{{autor.first_name}} {{autor.last_name}}</li>
+            <li style="color: #E5E4E2;">{{autor.first_name}} {{autor.last_name}} <a href="/remove/{{autor.id}}/{{id_book}}" class="btn btn-danger"><i class="fas fa-trash"></i></a></li>
             {%endfor%}
         </ul>
         <form action="/view/addAutor/{{id_book}}" method="POST" class="my-3">
